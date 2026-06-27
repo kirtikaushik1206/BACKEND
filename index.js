@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); // Learning Express REST APIs
 const users = require("./MOCK_DATA.json");
 const app = express();
 const PORT = 8080;
