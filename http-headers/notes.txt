@@ -1,0 +1,2 @@
+ HEADERS- HTTP Headers are an imp part  of the API req nd res as they represent the meta-data associated with the API request and response.
+ Headers carry info for the request and response body.
