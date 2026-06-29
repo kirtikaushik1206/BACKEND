@@ -49,6 +49,7 @@ app
 .get((req,res)=>{
     const id= Number(req.params.id) ; // since id is string we will change it to number})
     const user = users.find((user)=> user.id==id) ;
+    if(!user) return res.status(404).json({ error:"user not found"});
     return res.json(user);
 })
 .patch((req,res)=> {
