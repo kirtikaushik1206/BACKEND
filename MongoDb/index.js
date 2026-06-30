@@ -57,20 +57,18 @@ app.get("/api/users", (req, res) => {
 // Dynamic Path Parameters
 // GET/api/users/:id
 // :id -> Variable | Dynamic
-app.post("/api/users", (req,res)=>{
+app.post("/api/users", async (req,res)=>{
     const body = req.body;
     if(!body  ||!body.last_name ||   !body.first_name || !body.email || !body.gender || !body.job_title){
         return res.status(400).json({ msg: "All feilds are req..."});
     }
 
-    users.push({...body, id: users.length+1});
-    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err,data)=>{
-        return res.json({status:"success"  , id: users.length});
+  
     });
 
 
-}
-);
+
+
 
 app
 .route ("/api/users/:id")
