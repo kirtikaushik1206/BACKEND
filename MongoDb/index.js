@@ -3,6 +3,10 @@ const fs= require('fs');
 const mongoose= require("mongoose");
 const app = express();
 const PORT = 8080;
+// Connection 
+  mongoose.connect ('mongodb://127.0.0.1:27017/youtube-app-1')
+  .then(()=>     console.log("MongoDB connected"))
+  .catch( (err)  => console.log("Mongo Error", err));
 //schema
 const userSchema = new mongoose.Schema({
 
@@ -25,7 +29,9 @@ firstName : {
   gender:{
     type: String,
   },
-})
+});
+const User = mongoose.model (' user ' , userSchema);
+
 
 //Middleware- Plugin (inserts form data into body);
 app.use(express.urlencoded({extended:false}));
