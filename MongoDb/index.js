@@ -1,5 +1,4 @@
 const express = require("express"); // Learning Express REST APIs
-const fs= require('fs');
 const mongoose= require("mongoose"); // step 1
 const app = express();
 const PORT = 8080;
@@ -57,24 +56,34 @@ app.get("/api/users", (req, res) => {
 // Dynamic Path Parameters
 // GET/api/users/:id
 // :id -> Variable | Dynamic
-app.post("/api/users", async (req,res)=>{
+app.post("/api/users", async (req, res) => {
     const body = req.body;
-    if(!body  ||!body.last_name ||   !body.first_name || !body.email || !body.gender || !body.job_title){
-        return res.status(400).json({ msg: "All feilds are req..."});
+    
+    if (!body || !body.last_name || !body.first_name || !body.email || !body.gender || !body.job_title) {
+        return res.status(400).json({ msg: "All fields are required..." });
     }
 
-    const result= await User.create({
-      firstName : body.first_name,
-      lastName : body.last_name,
-      email: body.email,
-      gender: body.gender,
-      jobTitle: body.job_title,
+    
+        const result = await User.create({
+            firstName: body.first_name,
+            lastName: body.last_name,
+            email: body.email,
+            gender: body.gender,
+            jobTitle: body.job_title,
+        });
 
-  
-    });
-    console.log("result", result);
-    return res.status(201).json({ msg:'success'});
+        console.log ("result" , result);
+
+        return res.status(201).json({ msg: 'success'});
+
+        
 });
+
+app.patch ("/api/users/:id" , async(req , res)=>{
+  await User.findByIdAndUpdate(req.params.id , { lastName: "Changed"});
+  return res.json ({ status : "Success"});
+})
+
 
 
 
