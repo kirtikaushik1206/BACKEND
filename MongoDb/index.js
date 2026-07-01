@@ -1,13 +1,13 @@
 const express = require("express"); // Learning Express REST APIs
 const fs= require('fs');
-const mongoose= require("mongoose");
+const mongoose= require("mongoose"); // step 1
 const app = express();
 const PORT = 8080;
 // Connection 
   mongoose.connect ('mongodb://127.0.0.1:27017/youtube-app-1')
-  .then(()=>     console.log("MongoDB connected"))
+  .then(()=>     console.log("MongoDB connected"))                      // step 2 
   .catch( (err)  => console.log("Mongo Error", err));
-//schema
+//schema (step 3)
 const userSchema = new mongoose.Schema({
 
 firstName : {
@@ -30,7 +30,7 @@ firstName : {
     type: String,
   },
 });
-const User = mongoose.model (' user ' , userSchema);
+const User = mongoose.model (' user ' , userSchema); // step 4
 
 
 //Middleware- Plugin (inserts form data into body);
@@ -63,30 +63,19 @@ app.post("/api/users", async (req,res)=>{
         return res.status(400).json({ msg: "All feilds are req..."});
     }
 
+    const result= await User.create({
+      firstName : body.first_name,
+      lastName : body.last_name,
+      email: body.email,
+      gender: body.gender,
+      jobTitle: body.job_title,
+
   
     });
-
-
-
-
-
-app
-.route ("/api/users/:id")
-.get((req,res)=>{
-    const id= Number(req.params.id) ; // since id is string we will change it to number})
-    const user = users.find((user)=> user.id==id) ;
-    if(!user) return res.status(404).json({ error:"user not found"});
-    return res.json(user);
-})
-.patch((req,res)=> {
-    // Edit user with id
-    return res.json( {status: "pending"});
-
-})
-.delete((req,res)=> {
-    //Delete user
-     return res.json( {status: "pending"});
+    console.log("result", result);
+    return res.status(201).json({ msg:'success'});
 });
+
 
 
 
